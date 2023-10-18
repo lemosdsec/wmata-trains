@@ -11,7 +11,7 @@ def fetch_filtered_train_positions(api_key):
 
         train_positions = response.json().get('TrainPositions', [])
         filtered_trains = [
-            train for train in filtered_trains
+            train for train in train_positions 
             if train['DestinationStationCode'] == "C15"
             and train['LineCode'] == "YL"
             and train['ServiceType'] == "Normal"
