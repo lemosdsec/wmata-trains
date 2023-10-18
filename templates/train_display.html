@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WMATA Train Positions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>WMATA Train Positions</h1>
+        <div class="row" id="train-positions">
+            {% for train in train_positions %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Train ID: {{ train.TrainId }}</h5>
+                        <p class="card-text">Line Code: {{ train.LineCode }}</p>
+                        <p class="card-text">Destination: {{ train.DestinationStationCode }}</p>
+                        <p class="card-text">Service Type: {{ train.ServiceType }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p id="total-count">Number of trains going into Station X on the Yellow Line and carrying passengers: {{ total_count }}</p>
+    </div>
+
+    <script>
+        function updateTrainPositions() {
+            fetch('/update_train_positions')
+                .then(response => response.json())
+                .then(data => {
+                    // Clear the existing train positions
+                    const trainPositionsDiv = document.getElementById('train-positions');
+                    trainPositionsDiv.innerHTML = '';
+
+                    // Append the updated train positions
+                    data.forEach(train => {
+                        const card = document.createElement('div');
+                        card.className = 'col-md-4 mb-3';
+                        card.innerHTML = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Train ID: ${train.TrainId}</h5>
+                                    <p class="card-text">Line Code: ${train.LineCode}</p>
+                                    <p class="card-text">Destination: ${train.DestinationStationCode}</p>
+                                    <p class="card-text">Service Type: ${train.ServiceType}</p>
+                                </div>
+                            </div>
+                        `;
+                        trainPositionsDiv.appendChild(card);
+                    });
+
+                    // Update the total count
+                    const totalDiv = document.getElementById('total-count');
+                    totalDiv.textContent = `Number of trains going into Station X on the Yellow Line and carrying passengers: ${data.length}`;
+                });
+        }
+
+        // Refresh the data every 60 seconds (adjust the interval as needed)
+        setInterval(updateTrainPositions, 60000);
+    </script>
+</body>
+</html>
