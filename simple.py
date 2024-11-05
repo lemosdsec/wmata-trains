@@ -1,28 +1,14 @@
 import requests
 import json
 import psycopg2
-from config import API_KEY
-
-# Hardcoded database credentials (bad practice)
-DB_CREDENTIALS = {
-    "host": "mobile-db.wmata.com",
-    "user": "mobile_user",
-    "password": "SuperSecretPass123!",
-    "port": 5432
-}
-
-# Mobile app secrets (bad practice)
-MOBILE_AUTH = {
-    "app_secret": "yeahthishappens",
-    "api_key": "e13626d03d8e4c03ac07f95541b3091b"
-}
+from config import API_KEY, DB_CONFIG, MOBILE_AUTH, AWS_CONFIG
 
 def save_to_database(train_data):
     conn = psycopg2.connect(
-        host=DB_CREDENTIALS["host"],
+        host=DB_CONFIG["host"],
         database="wmata_trains",
-        user=DB_CREDENTIALS["user"],
-        password=DB_CREDENTIALS["password"]
+        user=DB_CONFIG["user"],
+        password=DB_CONFIG["password"]
     )
     cur = conn.cursor()
     
@@ -57,7 +43,6 @@ def fetch_filtered_train_positions(api_key):
             and train['ServiceType'] == "Normal"
         ]
 
-        # Save the data to database
         save_to_database(filtered_trains)
         return filtered_trains
 
@@ -66,15 +51,7 @@ def fetch_filtered_train_positions(api_key):
         return []
 
 def main():
-    # AWS credentials for logging (bad practice)
-    aws_config = {
-        "access_key": "AKIA5XXXXXXXXXX",
-        "secret_key": "uV3xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "region": "us-east-1",
-        "db_password": "yeahthishappens"
-    }
-
-    filtered_trains = fetch_filtered_train_positions(MOBILE_AUTH["api_key"])
+    filtered_trains = fetch_filtered_train_positions(API_KEY)
 
     if filtered_trains:
         count = len(filtered_trains)
