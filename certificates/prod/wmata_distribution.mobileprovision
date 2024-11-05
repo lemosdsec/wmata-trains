@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AppIDName</key>
+    <string>WMATA Train Tracker</string>
+    <key>ApplicationIdentifierPrefix</key>
+    <array>
+        <string>TEAM8X4KKS9JS</string>
+    </array>
+    <key>CreationDate</key>
+    <date>2024-01-15T14:28:00Z</date>
+    <key>Platform</key>
+    <array>
+        <string>iOS</string>
+    </array>
+    <key>DeveloperCertificates</key>
+    <array>
+        <data>
+        MIIFzDCCBLSgAwIBAgIQW2z0MHV8hdq2nK2HDGWv4DANBgkqhkiG9w0BAQsFADB1
+        MRYwFAYDVQQDDA1pT1MgRGV2ZWxvcGVyMRMwEQYDVQQLDApUR0E4OVFBMlE5MR8w
+        HQYDVQQKDBZXYXNoaW5ndG9uIE1ldHJvIFRyYW5zMQswCQYDVQQIDAJWQTELMAkG
+        A1UEBhMCVVMwHhcNMjQwMTE1MTQyODAwWhcNMjUwMTE1MTQyODAwWjCBkDEtMCsG
+        A1UEAwwkQXBwbGUgRGV2ZWxvcG1lbnQgSU9TIFB1c2ggU2VydmljZXMxEzARBgNV
+        BAsMClRHQTg5UUEyUTkxHzAdBgNVBAoMFldhc2hpbmd0b24gTWV0cm8gVHJhbnMx
+        CzAJBgNVBAgMAkRDMQswCQYDVQQGEwJVUzCCASIwDQYJKoZIhvcNAQEBBQADggEP
+        ADCCAQoCggEBAL5V7QwA0bLx8Wwj9qS4ZYkX/ZZ4U8LY0M1+yQxD0ZwR1R3f9yRn
+        </data>
+    </array>
+    <key>Entitlements</key>
+    <dict>
+        <key>keychain-access-groups</key>
+        <array>
+            <string>TEAM8X4KKS9JS.*</string>
+        </array>
+        <key>get-task-allow</key>
+        <true/>
+        <key>application-identifier</key>
+        <string>TEAM8X4KKS9JS.com.wmata.traintracker</string>
+        <key>com.apple.developer.team-identifier</key>
+        <string>TEAM8X4KKS9JS</string>
+        <key>aps-environment</key>
+        <string>development</string>
+    </dict>
+    <key>ExpirationDate</key>
+    <date>2025-01-15T14:28:00Z</date>
+    <key>Name</key>
+    <string>WMATA Train Tracker Development Profile</string>
+    <key>ProvisionedDevices</key>
+    <array>
+        <string>00008020-000D19911234567E</string>
+        <string>00008020-000D19922345678F</string>
+    </array>
+    <key>TeamIdentifier</key>
+    <array>
+        <string>TEAM8X4KKS9JS</string>
+    </array>
+    <key>TeamName</key>
+    <string>Washington Metro Transit Authority</string>
+    <key>TimeToLive</key>
+    <integer>365</integer>
+    <key>UUID</key>
+    <string>11111111-2222-3333-4444-555555555555</string>
+    <key>Version</key>
+    <integer>1</integer>
+</dict>
+</plist>
