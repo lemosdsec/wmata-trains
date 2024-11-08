@@ -1,63 +1,136 @@
-# WMATA Train Positions Project
+# WMATA Train Positions Project - Security Demo
 
-This project provides two ways to access WMATA (Washington Metropolitan Area Transit Authority) train position data, filtered for yellow line trains headed to Huntington Station that are taking passengers.
+This project serves two purposes:
+1. A functional WMATA train tracking application
+2. A demonstration project for secret scanning and secure development practices
 
-## Setup
+## 🎯 Security Learning Objectives
+
+This repository demonstrates:
+- Pre-commit hook implementation for secret detection
+- CI/CD pipeline with security checks
+- Common patterns of leaked secrets
+- Best practices for secret management
+
+## 🚂 Application Features
+
+- Tracks WMATA train positions
+- Filters for yellow line trains to Huntington Station
+- Provides both CLI and web interface
+
+## 🛠️ Setup
 
 ### Prerequisites
 
-- Python 3.x (Recommended)
-- Pip (Python package manager)
+- Python 3.x
+- pip (Python package manager)
+- git
 
-### Virtual Environment (Optional but Recommended)
+### Development Environment Setup
 
-It's a good practice to create a virtual environment to manage project dependencies. Here's how to create and activate a virtual environment:
-
+1. Clone the repository:
 ```bash
-# Create a virtual environment (you can choose a different name if desired)
-python -m venv myenv
-
-# Activate the virtual environment (use the appropriate command for your shell)
-# On macOS and Linux:
-source myenv/bin/activate
-# On Windows (Command Prompt):
-myenv\Scripts\activate
-# On Windows (PowerShell):
-myenv\Scripts\Activate.ps1
+git clone https://github.com/lemosdsec/wmata-trains
+cd wmata-trains
 ```
 
-
-### Install Dependencies
-
-To run the simple.py script, you need to install the requests library:
-
+2. Create and activate virtual environment:
 ```bash
-pip install requests
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-To run the trains.py Flask application, you need to install the following libraries:
-
+3. Install dependencies:
 ```bash
-pip install flask
-pip install flask-bootstrap
+pip install -r requirements.txt
 ```
 
+4. Install pre-commit hooks:
+```bash
+pip install pre-commit
+pre-commit install
+```
 
-## Usage
-### simple.py
+## 🔒 Security Features
 
-simple.py is a Python script that retrieves train positions and prints filtered data to the console. To run it, use the following command:
+### Pre-commit Hooks
 
+This project includes pre-commit hooks that:
+- Scan for potential secrets using TruffleHog
+- Check code style with Flake8
+- Enforce file formatting standards
+
+To manually run security checks:
+```bash
+pre-commit run --all-files
+```
+
+### CI Pipeline
+
+The GitHub Actions pipeline includes:
+- Automated secret scanning
+- Dependency security checks
+- Code quality verification
+
+## 🎮 Application Usage
+
+### CLI Version
 ```bash
 python simple.py
 ```
 
-
-### trains.py (Flask Application)
-
-trains.py is a Flask application that provides a dedicated web page for viewing filtered train positions. To run the application, use the following command:
-
+### Web Application
 ```bash
 python trains.py
 ```
-Once the application is running, open a web browser and navigate to http://localhost:5000 to access the train positions in a more user-friendly format.
+Access the web interface at: http://localhost:5000
+
+## 🔍 Security Demo Instructions
+
+### Testing Secret Detection
+
+1. Try committing a file with a fake AWS key:
+```python
+# test_secrets.py
+AWS_KEY = 'AKIA1234567890ABCDEF'
+```
+
+2. Observe how pre-commit hooks prevent the commit
+
+### Common Secret Patterns Detected
+
+- AWS Access Keys
+- API Keys
+- Private Keys
+- Authentication Tokens
+- Database Credentials
+
+## 🎓 Learning Resources
+
+- [Secret Scanning Best Practices](link-to-resource)
+- [Pre-commit Documentation](https://pre-commit.com/)
+- [TruffleHog Documentation](https://github.com/trufflesecurity/trufflehog)
+
+## ⚠️ Important Notes
+
+This is a demonstration project for educational purposes:
+- Some secrets may be intentionally placed for demonstration
+- Do NOT use any credentials found in this repository
+- In real projects, always use secure secret management solutions
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Install pre-commit hooks
+3. Make your changes
+4. Ensure all security checks pass
+5. Submit a pull request
+
+## 📝 License
+
+[Your License Here]
+
+## 🔗 Additional Documentation
+
+- [Pre-commit and CI Setup](docs/security-checks.md)
+- [WMATA API Documentation](docs/api-docs.md)
