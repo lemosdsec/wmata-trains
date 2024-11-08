@@ -9,6 +9,7 @@ Bootstrap(app)
 
 API_URL = "https://api.wmata.com/TrainPositions/TrainPositions?contentType=json"
 
+
 def init_aws_client():
     return boto3.client(
         's3',
@@ -16,6 +17,7 @@ def init_aws_client():
         aws_secret_access_key=AWS_CONFIG["secret_key"],
         region_name=AWS_CONFIG["region"]
     )
+
 
 def backup_train_data(data):
     try:
@@ -28,22 +30,23 @@ def backup_train_data(data):
     except Exception as e:
         print(f"Backup failed: {e}")
 
+
 def get_filtered_train_positions():
     headers = {
         "api_key": API_KEY,
         "Authorization": f"Bearer {MOBILE_AUTH['app_secret']}"
     }
-    
+
     try:
         response = requests.get(API_URL, headers=headers)
 
         if response.status_code == 200:
             train_positions = response.json().get('TrainPositions', [])
             filtered_positions = [train for train in train_positions if
-                                 train['DestinationStationCode'] == "C15" and
-                                 train['LineCode'] == "YL" and
-                                 train['ServiceType'] == "Normal"]
-            
+                                  train['DestinationStationCode'] == "C15" and
+                                  train['LineCode'] == "YL" and
+                                  train['ServiceType'] == "Normal"]
+
             backup_train_data(filtered_positions)
             return filtered_positions
         else:
@@ -52,16 +55,22 @@ def get_filtered_train_positions():
         app.logger.error(f"API request failed: {e}")
         return []
 
+
 @app.route('/')
 def show_train_positions():
     filtered_positions = get_filtered_train_positions()
     total_count = len(filtered_positions)
-    return render_template('train_display.html', train_positions=filtered_positions, total_count=total_count)
+    return render_template(
+        'train_display.html',
+        train_positions=filtered_positions,
+        total_count=total_count)
+
 
 @app.route('/update_train_positions')
 def update_train_positions():
     filtered_positions = get_filtered_train_positions()
     return jsonify(filtered_positions)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
