@@ -32,8 +32,8 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          base: ${{ github.event.repository.default_branch }}
-          head: HEAD
+          only_verified: true
+          since_commit: ${{ github.event.before }}
 
   tests:
     runs-on: ubuntu-latest
